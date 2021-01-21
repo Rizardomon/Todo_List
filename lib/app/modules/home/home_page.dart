@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:todo_list/app/app_controller.dart';
 import 'home_controller.dart';
 import 'models/todo_model.dart';
 
@@ -14,12 +15,38 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
   //use 'controller' variable to access controller
-
+  AppController appController;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: Column(
+          children: [
+            UserAccountsDrawerHeader(
+                currentAccountPicture: ClipRRect(
+                  borderRadius: BorderRadius.circular(40),
+                  child: Image.network(
+                      'https://avatars0.githubusercontent.com/u/57680110?s=460&u=3a21880d4b7aa28c3216830bbb524d01c0a0365c&v=4'),
+                ),
+                accountName: Text('Richard Robinson'),
+                accountEmail: Text('richard@teste.com')),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Home Page'),
+              subtitle: Text('Voltar para home'),
+              onTap: () => print('home'),
+            ),
+            ListTile(
+                leading: Icon(Icons.logout),
+                title: Text('Logout'),
+                subtitle: Text('Finalizar Sessão'),
+                onTap: () => print('home')),
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [],
       ),
       body: Observer(
         builder: (_) {
@@ -45,23 +72,29 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             itemCount: list.length,
             itemBuilder: (_, index) {
               TodoModel model = list[index];
-              return ListTile(
-                title: Text(model.title),
-                onTap: () {
-                  _showDialog(model);
-                },
-                trailing: Checkbox(
-                  value: model.check,
-                  onChanged: (check) {
-                    model.check = check;
-                    controller.save(model);
-                  },
+              return Card(
+                margin: EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 20,
                 ),
-                leading: IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () {
-                    controller.removeEntry(model);
+                child: ListTile(
+                  title: Text(model.title),
+                  onTap: () {
+                    _showDialog(model);
                   },
+                  trailing: Checkbox(
+                    value: model.check,
+                    onChanged: (check) {
+                      model.check = check;
+                      controller.save(model);
+                    },
+                  ),
+                  leading: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      controller.removeEntry(model);
+                    },
+                  ),
                 ),
               );
             },
