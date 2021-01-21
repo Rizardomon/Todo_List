@@ -31,16 +31,13 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 accountName: Text('Richard Robinson'),
                 accountEmail: Text('richard@teste.com')),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home Page'),
-              subtitle: Text('Voltar para home'),
-              onTap: () => print('home'),
-            ),
-            ListTile(
-                leading: Icon(Icons.logout),
+                leading: Icon(
+                  Icons.logout,
+                  color: Colors.deepPurple[200],
+                ),
                 title: Text('Logout'),
                 subtitle: Text('Finalizar Sessão'),
-                onTap: () => print('home')),
+                onTap: () => Navigator.of(context).pushReplacementNamed('/')),
           ],
         ),
       ),
@@ -83,6 +80,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     _showDialog(model);
                   },
                   trailing: Checkbox(
+                    activeColor: Colors.deepPurple,
                     value: model.check,
                     onChanged: (check) {
                       model.check = check;
@@ -91,6 +89,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   ),
                   leading: IconButton(
                     icon: Icon(Icons.delete),
+                    color: Colors.deepPurple[200],
                     onPressed: () {
                       controller.removeEntry(model);
                     },
@@ -126,14 +125,14 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             actions: <Widget>[
               FlatButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/');
+                  Navigator.pushNamed(context, '/home');
                 },
                 child: Text('Cancel'),
               ),
               FlatButton(
                 onPressed: () async {
                   await controller.save(model);
-                  Navigator.pushNamed(context, '/');
+                  Navigator.pushNamed(context, '/home');
                 },
                 child: Text('Save'),
               ),

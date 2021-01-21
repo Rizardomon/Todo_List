@@ -8,8 +8,12 @@ class AppWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: Modular.navigatorKey,
       title: 'Todo List',
-      theme: ThemeData(),
-      darkTheme: ThemeData.dark(),
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.deepPurple,
+        primaryColor: Colors.deepPurple[400],
+        accentColor: Colors.deepPurple[400],
+      ),
       initialRoute: '/',
       onGenerateRoute: Modular.generateRoute,
     );
