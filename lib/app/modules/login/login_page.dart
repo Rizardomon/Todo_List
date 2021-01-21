@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:todo_list/app/modules/login/login_controller.dart';
 
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ModularState<LoginPage, LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,6 +80,17 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.of(context).pushReplacementNamed('/home');
                   },
                   child: Text('Login'),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50.0),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 62),
+                  onPressed: controller.loginWithGoogle,
+                  child: Text('Login with Google'),
                 ),
               ],
             ),

@@ -28,16 +28,17 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   child: Image.network(
                       'https://avatars0.githubusercontent.com/u/57680110?s=460&u=3a21880d4b7aa28c3216830bbb524d01c0a0365c&v=4'),
                 ),
-                accountName: Text('Richard Robinson'),
+                accountName: Text("Richard Robinson"),
                 accountEmail: Text('richard@teste.com')),
             ListTile(
-                leading: Icon(
-                  Icons.logout,
-                  color: Colors.deepPurple[200],
-                ),
-                title: Text('Logout'),
-                subtitle: Text('Finalizar Sessão'),
-                onTap: () => Navigator.of(context).pushReplacementNamed('/')),
+              leading: Icon(
+                Icons.logout,
+                color: Colors.deepPurple[200],
+              ),
+              title: Text('Logout'),
+              subtitle: Text('Finalizar Sessão'),
+              onTap: controller.logoff,
+            ),
           ],
         ),
       ),

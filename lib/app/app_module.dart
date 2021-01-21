@@ -1,4 +1,7 @@
 import 'package:todo_list/app/modules/login/login_module.dart';
+import 'package:todo_list/app/shared/auth/auth_controller.dart';
+import 'package:todo_list/app/shared/auth/repositories/auth_repository.dart';
+import 'package:todo_list/app/shared/auth/repositories/auth_repository_interface.dart';
 
 import 'app_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -10,6 +13,8 @@ class AppModule extends MainModule {
   List<Bind> get binds => [
         // $AppController,
         Bind((i) => AppController()),
+        Bind<IAuthRepository>((i) => AuthRepository()),
+        Bind((i) => AuthController()),
       ];
 
   @override

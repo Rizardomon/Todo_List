@@ -2,6 +2,7 @@ import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:todo_list/app/modules/home/models/todo_model.dart';
 import 'package:todo_list/app/modules/home/repositories/todo_repository_interface.dart';
+import 'package:todo_list/app/shared/auth/auth_controller.dart';
 
 part 'home_controller.g.dart';
 
@@ -26,4 +27,9 @@ abstract class _HomeControllerBase with Store {
   Future save(TodoModel model) => repository.save(model);
 
   Future removeEntry(TodoModel model) => repository.removeEntry(model);
+
+  Future logoff() async {
+    await Modular.get<AuthController>().logout();
+    Modular.to.pushReplacementNamed('/');
+  }
 }
