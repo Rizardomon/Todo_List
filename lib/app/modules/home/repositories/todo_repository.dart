@@ -30,10 +30,18 @@ class TodoRepository implements ITodoRepository {
   @override
   Future save(TodoModel model) async {
     if (model.reference == null) {
-      model.reference = await _db.collection('todo').add(
-          {'id': model.uuid.v1(), 'title': model.title, 'check': model.check});
+      model.reference = await _db.collection('todo').add({
+        'id': model.uuid.v1(),
+        'title': model.title,
+        'subtitle': model.subtitle,
+        'check': model.check
+      });
     } else {
-      model.reference.update({'title': model.title, 'check': model.check});
+      model.reference.update({
+        'title': model.title,
+        'subtitle': model.subtitle,
+        'check': model.check
+      });
     }
   }
 }

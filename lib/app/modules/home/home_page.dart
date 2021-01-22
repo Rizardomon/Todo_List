@@ -76,7 +76,24 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   horizontal: 20,
                 ),
                 child: ListTile(
-                  title: Text(model.title),
+                  title: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      model.title,
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      model.subtitle,
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
                   onTap: () {
                     _showDialog(model);
                   },
@@ -115,12 +132,28 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         builder: (_) {
           return AlertDialog(
             title: Text(model.title.isEmpty ? 'New Todo' : 'Edit Todo'),
-            content: TextFormField(
-              initialValue: model.title,
-              onChanged: (value) => model.title = value,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Write...',
+            content: Container(
+              height: 150,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  TextFormField(
+                    initialValue: model.title,
+                    onChanged: (value) => model.title = value,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Write your title',
+                    ),
+                  ),
+                  TextFormField(
+                    initialValue: model.subtitle,
+                    onChanged: (value) => model.subtitle = value,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Description',
+                    ),
+                  ),
+                ],
               ),
             ),
             actions: <Widget>[
