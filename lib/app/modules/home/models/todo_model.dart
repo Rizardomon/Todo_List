@@ -1,27 +1,70 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:uuid/uuid.dart';
 
 class TodoModel {
-  String id;
-  String title;
-  String subtitle;
-  bool check;
-  DocumentReference reference;
-  var uuid = Uuid();
+  String addres;
+  String addres2;
+  String addres3;
+  String city;
+  String computerName;
+  String computerScreen;
+  String computerType;
+  Timestamp createdAt;
+  String lockerQuantity;
+  String lockerVersion;
+  String name;
+  String number;
+  String homeName;
+  String homeNumber;
+  String homeRentAmount;
+  String homeResidents;
+  Timestamp homeStartDate;
+  String homeType;
 
-  TodoModel(
-      {this.id,
-      this.reference,
-      this.title = '',
-      this.subtitle = '',
-      this.check = false});
+  DocumentReference reference;
+
+  TodoModel({
+    this.reference,
+    this.addres = '',
+    this.addres2 = '',
+    this.addres3 = '',
+    this.city = '',
+    this.computerName = '',
+    this.computerScreen = '',
+    this.computerType = '',
+    this.createdAt,
+    this.lockerQuantity = '',
+    this.lockerVersion = '',
+    this.name = '',
+    this.number = '',
+    this.homeName = '',
+    this.homeNumber = '',
+    this.homeRentAmount = '',
+    this.homeResidents = '',
+    this.homeStartDate,
+    this.homeType = '',
+  });
 
   factory TodoModel.fromDocument(DocumentSnapshot doc) {
     return TodoModel(
-        title: doc['title'],
-        subtitle: doc['subtitle'],
-        check: doc['check'],
-        reference: doc.reference,
-        id: doc['id']);
+      addres: doc['addres'],
+      addres2: doc['addres2'],
+      addres3: doc['addres3'],
+      city: doc['city'],
+      computerName: doc['computerName'],
+      computerScreen: doc['computerScreen'],
+      computerType: doc['computerType'],
+      createdAt: doc['createdAt'],
+      lockerQuantity: doc['lockerQuantity'],
+      lockerVersion: doc['lockerVersion'],
+      name: doc['name'],
+      number: doc['number'],
+      homeName: doc['homeName'],
+      homeNumber: doc['homeNumber'],
+      homeRentAmount: doc['homeRentAmount'],
+      homeResidents: doc['homeResidents'],
+      homeStartDate: doc['homeStartDate'],
+      homeType: doc['homeType'],
+      reference: doc.reference,
+    );
   }
 }

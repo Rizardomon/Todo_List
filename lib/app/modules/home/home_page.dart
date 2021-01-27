@@ -7,7 +7,7 @@ import 'models/todo_model.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
-  const HomePage({Key key, this.title = "Todo's"}) : super(key: key);
+  const HomePage({Key key, this.title = "Entry's"}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -19,32 +19,14 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: Column(
-          children: [
-            UserAccountsDrawerHeader(
-                currentAccountPicture: ClipRRect(
-                  borderRadius: BorderRadius.circular(40),
-                  child: Image.network(
-                      'https://avatars0.githubusercontent.com/u/57680110?s=460&u=3a21880d4b7aa28c3216830bbb524d01c0a0365c&v=4'),
-                ),
-                accountName: Text("Richard Robinson"),
-                accountEmail: Text('richard@teste.com')),
-            ListTile(
-              leading: Icon(
-                Icons.logout,
-                color: Colors.deepPurple[200],
-              ),
-              title: Text('Logout'),
-              subtitle: Text('Finalizar Sessão'),
-              onTap: controller.logoff,
-            ),
-          ],
-        ),
-      ),
       appBar: AppBar(
         title: Text(widget.title),
-        actions: [],
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: _showDialog,
+          ),
+        ],
       ),
       body: Observer(
         builder: (_) {
@@ -71,56 +53,425 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             itemBuilder: (_, index) {
               TodoModel model = list[index];
               return Card(
-                margin: EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 20,
-                ),
-                child: ListTile(
-                  title: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      model.title,
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+                margin: EdgeInsets.all(20),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                            child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Place',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
+                        SizedBox(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.location_pin,
+                                    color: Colors.deepPurple[400],
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    'Addres',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.location_city,
+                                    color: Colors.deepPurple[400],
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    'City',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        SizedBox(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  '${model.addres}, ${model.addres2}, ${model.addres3}',
+                                ),
+                              ),
+                              Flexible(
+                                child: Text(
+                                  '${model.city}',
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.computer,
+                                        color: Colors.deepPurple[400],
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        'Computer',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Name: ',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        model.computerName,
+                                        style: TextStyle(color: Colors.white54),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Screens: ',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        model.computerScreen,
+                                        style: TextStyle(color: Colors.white54),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Type: ',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        model.computerType,
+                                        style: TextStyle(color: Colors.white54),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.lock,
+                                        color: Colors.deepPurple[400],
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        'Locker',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Quantity: ',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        model.lockerQuantity,
+                                        style: TextStyle(color: Colors.white54),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Version: ',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        model.lockerVersion,
+                                        style: TextStyle(color: Colors.white54),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Name: ',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        model.name,
+                                        style: TextStyle(color: Colors.white54),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Number: ',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        model.number,
+                                        style: TextStyle(color: Colors.white54),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.home_work,
+                                        color: Colors.deepPurple[400],
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        'Room',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Alocation: ',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        '${model.homeName}, n° ${model.homeNumber}',
+                                        style: TextStyle(color: Colors.white54),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Rent Amount: ',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        'R\$ ${model.homeRentAmount}',
+                                        style: TextStyle(color: Colors.white54),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Residents: ',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        model.homeResidents,
+                                        style: TextStyle(color: Colors.white54),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Type: ',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        model.homeType,
+                                        style: TextStyle(color: Colors.white54),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Edit',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      IconButton(
+                                          icon: Icon(
+                                            Icons.edit,
+                                            color: Colors.deepPurple[400],
+                                          ),
+                                          onPressed: () => _showDialog(model))
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Remove',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      IconButton(
+                                          icon: Icon(
+                                            Icons.delete,
+                                            color: Colors.deepPurple[400],
+                                          ),
+                                          onPressed: () =>
+                                              controller.removeEntry(model))
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  subtitle: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      model.subtitle,
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  onTap: () {
-                    _showDialog(model);
-                  },
-                  trailing: Checkbox(
-                    activeColor: Colors.deepPurple,
-                    value: model.check,
-                    onChanged: (check) {
-                      model.check = check;
-                      controller.save(model);
-                    },
-                  ),
-                  leading: IconButton(
-                    icon: Icon(Icons.delete),
-                    color: Colors.deepPurple[200],
-                    onPressed: () {
-                      controller.removeEntry(model);
-                    },
                   ),
                 ),
               );
+
+              // trailing: IconButton(
+              //   icon: Icon(Icons.delete),
+              //   color: Colors.deepPurple[200],
+              //   onPressed: () {
+              //     controller.removeEntry(model);
+              //   },
+              // ),
             },
           );
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showDialog,
-        child: Icon(Icons.add),
       ),
     );
   }
@@ -131,26 +482,177 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         context: context,
         builder: (_) {
           return AlertDialog(
-            title: Text(model.title.isEmpty ? 'New Todo' : 'Edit Todo'),
-            content: Container(
-              height: 150,
+            title: Text(model.name.isEmpty ? 'New Entry' : 'Edit Entry'),
+            content: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  TextFormField(
-                    initialValue: model.title,
-                    onChanged: (value) => model.title = value,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Write your title',
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      initialValue: model.addres,
+                      onChanged: (value) => model.addres = value,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'addres',
+                      ),
                     ),
                   ),
-                  TextFormField(
-                    initialValue: model.subtitle,
-                    onChanged: (value) => model.subtitle = value,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Description',
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      initialValue: model.addres2,
+                      onChanged: (value) => model.addres2 = value,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'addres2',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      initialValue: model.addres3,
+                      onChanged: (value) => model.addres3 = value,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'addres3',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      initialValue: model.city,
+                      onChanged: (value) => model.city = value,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'city',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      initialValue: model.computerName,
+                      onChanged: (value) => model.computerName = value,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'computerName',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      initialValue: model.computerScreen,
+                      onChanged: (value) => model.computerScreen = value,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'computerScreen',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      initialValue: model.lockerQuantity,
+                      onChanged: (value) => model.lockerQuantity = value,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'lockerQuantity',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      initialValue: model.lockerVersion,
+                      onChanged: (value) => model.lockerVersion = value,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'lockerVersion',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      initialValue: model.name,
+                      onChanged: (value) => model.name = value,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'name',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      initialValue: model.number,
+                      onChanged: (value) => model.number = value,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'number',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      initialValue: model.homeName,
+                      onChanged: (value) => model.homeName = value,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'homeName',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      initialValue: model.homeNumber,
+                      onChanged: (value) => model.homeNumber = value,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'homeNumber',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      initialValue: model.homeRentAmount,
+                      onChanged: (value) => model.homeRentAmount = value,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'homeRentAmount',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      initialValue: model.homeResidents,
+                      onChanged: (value) => model.homeResidents = value,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'homeResidents',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: TextFormField(
+                      initialValue: model.homeType,
+                      onChanged: (value) => model.homeType = value,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'homeType',
+                      ),
                     ),
                   ),
                 ],
@@ -159,14 +661,14 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             actions: <Widget>[
               FlatButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/home');
+                  Navigator.pushReplacementNamed(context, '/home');
                 },
                 child: Text('Cancel'),
               ),
               FlatButton(
                 onPressed: () async {
                   await controller.save(model);
-                  Navigator.pushNamed(context, '/home');
+                  Navigator.pushReplacementNamed(context, '/home');
                 },
                 child: Text('Save'),
               ),
