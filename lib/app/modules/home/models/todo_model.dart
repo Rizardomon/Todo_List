@@ -6,17 +6,17 @@ class TodoModel {
   String addres3;
   String city;
   String computerName;
-  String computerScreen;
+  int computerScreen;
   String computerType;
   Timestamp createdAt;
-  String lockerQuantity;
+  int lockerQuantity;
   String lockerVersion;
   String name;
   String number;
   String homeName;
   String homeNumber;
-  String homeRentAmount;
-  String homeResidents;
+  double homeRentAmount;
+  int homeResidents;
   Timestamp homeStartDate;
   String homeType;
 
@@ -29,17 +29,17 @@ class TodoModel {
     this.addres3 = '',
     this.city = '',
     this.computerName = '',
-    this.computerScreen = '',
+    this.computerScreen = 0,
     this.computerType = '',
     this.createdAt,
-    this.lockerQuantity = '',
+    this.lockerQuantity = 0,
     this.lockerVersion = '',
     this.name = '',
     this.number = '',
     this.homeName = '',
     this.homeNumber = '',
-    this.homeRentAmount = '',
-    this.homeResidents = '',
+    this.homeRentAmount = 0,
+    this.homeResidents = 0,
     this.homeStartDate,
     this.homeType = '',
   });

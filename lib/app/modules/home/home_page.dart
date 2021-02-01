@@ -196,7 +196,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                         ),
                                       ),
                                       Text(
-                                        model.computerScreen,
+                                        model.computerScreen.toString(),
                                         style: TextStyle(color: Colors.white54),
                                       ),
                                     ],
@@ -253,7 +253,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                         ),
                                       ),
                                       Text(
-                                        model.lockerQuantity,
+                                        model.lockerQuantity.toString(),
                                         style: TextStyle(color: Colors.white54),
                                       ),
                                     ],
@@ -388,7 +388,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                         ),
                                       ),
                                       Text(
-                                        model.homeResidents,
+                                        model.homeResidents.toString(),
                                         style: TextStyle(color: Colors.white54),
                                       ),
                                     ],
@@ -545,8 +545,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: TextFormField(
                       keyboardType: TextInputType.number,
-                      initialValue: model.computerScreen,
-                      onChanged: (value) => model.computerScreen = value,
+                      initialValue: model.computerScreen.toString(),
+                      onChanged: (value) =>
+                          model.computerScreen = int.parse(value),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'computerScreen',
@@ -557,8 +558,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: TextFormField(
                       keyboardType: TextInputType.number,
-                      initialValue: model.lockerQuantity,
-                      onChanged: (value) => model.lockerQuantity = value,
+                      initialValue: model.lockerQuantity.toString(),
+                      onChanged: (value) =>
+                          model.lockerQuantity = int.parse(value),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'lockerQuantity',
@@ -625,8 +627,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: TextFormField(
-                      initialValue: model.homeRentAmount,
-                      onChanged: (value) => model.homeRentAmount = value,
+                      initialValue: model.homeRentAmount.toString(),
+                      onChanged: (value) =>
+                          model.homeRentAmount = double.parse(value),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'homeRentAmount',
@@ -636,8 +639,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: TextFormField(
-                      initialValue: model.homeResidents,
-                      onChanged: (value) => model.homeResidents = value,
+                      initialValue: model.homeResidents.toString(),
+                      onChanged: (value) =>
+                          model.homeResidents = int.parse(value),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'homeResidents',
